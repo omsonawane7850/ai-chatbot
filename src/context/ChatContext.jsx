@@ -42,30 +42,31 @@ export function ChatProvider({ children }) {
       content: trimmedMessage,
     };
 
-    // User message ko chat mein add karo.
-    setMessages((previousMessages) => [...previousMessages, userMessage]);
+    // Current conversation history + new user message
+    const updatedMessages = [...messages, userMessage];
 
+    setMessages(updatedMessages);
     setMessage("");
     setIsLoading(true);
 
     try {
       const response = await fetch(API_URL, {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
           "x-goog-api-key": API_KEY,
         },
+
         body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [
-                {
-                  text: trimmedMessage,
-                },
-              ],
-            },
-          ],
+          contents: updatedMessages.map((msg) => ({
+            role: msg.role === "assistant" ? "model" : "user",
+            parts: [
+              {
+                text: msg.content,
+              },
+            ],
+          })),
         }),
       });
 
@@ -84,7 +85,7 @@ export function ChatProvider({ children }) {
         throw new Error("Gemini returned an empty response.");
       }
 
-      // AI response ko chat mein add karo.
+      // Add AI response to conversation history
       setMessages((previousMessages) => [
         ...previousMessages,
         {
