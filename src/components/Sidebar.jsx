@@ -7,14 +7,22 @@ import {
   FiCommand,
 } from "react-icons/fi";
 
-function Sidebar({ isOpen, onClose, onNewChat }) {
+import { useChat } from "../context/ChatContext";
+
+function Sidebar() {
+  const { isSidebarOpen, setIsSidebarOpen, handleNewChat } = useChat();
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
     <>
       {/* Mobile Overlay */}
-      {isOpen && (
+      {isSidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
-          onClick={onClose}
+          onClick={closeSidebar}
         />
       )}
 
@@ -27,11 +35,7 @@ function Sidebar({ isOpen, onClose, onNewChat }) {
           bg-[#0B0D17] p-5
           transition-transform duration-300
           md:static md:translate-x-0
-          ${
-            isOpen
-              ? "translate-x-0"
-              : "-translate-x-full"
-          }
+          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
         {/* Brand */}
@@ -43,17 +47,16 @@ function Sidebar({ isOpen, onClose, onNewChat }) {
 
             <div>
               <h2 className="text-base font-semibold tracking-wide text-white">
-                Nova AI
+                AI ChatBot
               </h2>
 
-              <p className="text-xs text-slate-500">
-                Your AI companion
-              </p>
+              <p className="text-xs text-slate-500">Your AI companion</p>
             </div>
           </div>
 
+          {/* Close Button */}
           <button
-            onClick={onClose}
+            onClick={closeSidebar}
             aria-label="Close sidebar"
             className="rounded-lg p-2 text-slate-400 transition hover:bg-white/5 hover:text-white md:hidden"
           >
@@ -64,17 +67,13 @@ function Sidebar({ isOpen, onClose, onNewChat }) {
         {/* New Chat */}
         <button
           onClick={() => {
-            onNewChat();
-            onClose();
+            handleNewChat();
+            closeSidebar();
           }}
           className="group flex items-center justify-between rounded-xl border border-violet-400/20 bg-gradient-to-r from-violet-500/10 to-blue-500/10 px-4 py-3.5 text-sm font-medium text-white transition hover:border-violet-400/40 hover:from-violet-500/20 hover:to-blue-500/20"
         >
           <span className="flex items-center gap-3">
-            <FiPlus
-              size={19}
-              className="text-violet-300"
-            />
-
+            <FiPlus size={19} className="text-violet-300" />
             New Chat
           </span>
 
@@ -91,19 +90,14 @@ function Sidebar({ isOpen, onClose, onNewChat }) {
               Recent Chats
             </p>
 
-            <span className="text-xs text-slate-600">
-              01
-            </span>
+            <span className="text-xs text-slate-600">01</span>
           </div>
 
           <button className="group flex w-full items-center gap-3 rounded-xl border border-violet-400/10 bg-white/[0.04] px-3 py-3 text-left transition hover:bg-white/[0.07]">
-            <FiMessageSquare
-              size={17}
-              className="shrink-0 text-violet-300"
-            />
+            <FiMessageSquare size={17} className="shrink-0 text-violet-300" />
 
             <span className="flex-1 truncate text-sm text-slate-300">
-              Welcome to Nova AI
+              Welcome to AI ChatBot
             </span>
 
             <FiTrash2

@@ -7,8 +7,11 @@ import {
 } from "react-icons/fi";
 
 import { BsStars } from "react-icons/bs";
+import { useChat } from "../context/ChatContext";
 
-function WelcomeScreen({ onSuggestionClick }) {
+function WelcomeScreen() {
+  const { handleSuggestionClick } = useChat();
+
   const suggestions = [
     {
       icon: FiCode,
@@ -47,10 +50,12 @@ function WelcomeScreen({ onSuggestionClick }) {
   return (
     <section className="relative z-10 flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-8 md:px-8">
       <div className="m-auto flex w-full flex-col items-center">
-
         {/* Welcome Icon */}
         <div className="mb-5 flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-violet-400/20 bg-gradient-to-br from-violet-500/20 to-blue-500/10 shadow-[0_0_50px_rgba(139,92,246,0.12)]">
-          <BsStars size={30} className="text-violet-300" />
+          <BsStars
+            size={30}
+            className="text-violet-300"
+          />
         </div>
 
         {/* Heading */}
@@ -81,14 +86,19 @@ function WelcomeScreen({ onSuggestionClick }) {
             return (
               <button
                 key={suggestion.title}
-                onClick={() => onSuggestionClick(suggestion.prompt)}
+                onClick={() =>
+                  handleSuggestionClick(suggestion.prompt)
+                }
                 className="group rounded-2xl border border-white/[0.07] bg-white/[0.02] p-4 text-left transition duration-200 hover:-translate-y-0.5 hover:border-violet-400/25 hover:bg-white/[0.04] sm:p-5"
               >
                 <div className="mb-4 flex items-center justify-between">
                   <div
                     className={`flex h-10 w-10 items-center justify-center rounded-xl ${suggestion.bg}`}
                   >
-                    <Icon size={19} className={suggestion.color} />
+                    <Icon
+                      size={19}
+                      className={suggestion.color}
+                    />
                   </div>
 
                   <FiArrowUpRight
@@ -108,7 +118,6 @@ function WelcomeScreen({ onSuggestionClick }) {
             );
           })}
         </div>
-
       </div>
     </section>
   );
