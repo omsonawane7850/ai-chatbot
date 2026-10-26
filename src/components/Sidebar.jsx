@@ -10,7 +10,15 @@ import {
 import { useChat } from "../context/ChatContext";
 
 function Sidebar() {
-  const { isSidebarOpen, setIsSidebarOpen, handleNewChat } = useChat();
+  const {
+    isSidebarOpen,
+    setIsSidebarOpen,
+    chats,
+    activeChatId,
+    handleNewChat,
+    handleSelectChat,
+    handleDeleteChat,
+  } = useChat();
 
   const closeSidebar = () => {
     setIsSidebarOpen(false);
@@ -35,22 +43,28 @@ function Sidebar() {
           bg-[#0B0D17] p-5
           transition-transform duration-300
           md:static md:translate-x-0
-          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
+          ${
+            isSidebarOpen
+              ? "translate-x-0"
+              : "-translate-x-full"
+          }
         `}
       >
         {/* Brand */}
-        <div className="mb-9 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-600 shadow-lg shadow-violet-500/20">
+        <div className="mb-9 flex items-center justify-between gap-2">
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-600 shadow-lg shadow-violet-500/20">
               <FiCpu size={21} className="text-white" />
             </div>
 
-            <div>
-              <h2 className="text-base font-semibold tracking-wide text-white">
+            <div className="min-w-0">
+              <h2 className="truncate text-base font-semibold tracking-wide text-white">
                 AI ChatBot
               </h2>
 
-              <p className="text-xs text-slate-500">Your AI companion</p>
+              <p className="truncate text-xs text-slate-500">
+                Your AI companion
+              </p>
             </div>
           </div>
 
@@ -58,7 +72,7 @@ function Sidebar() {
           <button
             onClick={closeSidebar}
             aria-label="Close sidebar"
-            className="rounded-lg p-2 text-slate-400 transition hover:bg-white/5 hover:text-white md:hidden"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-white/10 hover:text-white md:hidden"
           >
             <FiX size={20} />
           </button>
@@ -66,10 +80,7 @@ function Sidebar() {
 
         {/* New Chat */}
         <button
-          onClick={() => {
-            handleNewChat();
-            closeSidebar();
-          }}
+          onClick={handleNewChat}
           className="group flex items-center justify-between rounded-xl border border-violet-400/20 bg-gradient-to-r from-violet-500/10 to-blue-500/10 px-4 py-3.5 text-sm font-medium text-white transition hover:border-violet-400/40 hover:from-violet-500/20 hover:to-blue-500/20"
         >
           <span className="flex items-center gap-3">
@@ -90,21 +101,57 @@ function Sidebar() {
               Recent Chats
             </p>
 
-            <span className="text-xs text-slate-600">01</span>
+            <span className="text-xs text-slate-600">
+              {String(chats.length).padStart(2, "0")}
+            </span>
           </div>
 
-          <button className="group flex w-full items-center gap-3 rounded-xl border border-violet-400/10 bg-white/[0.04] px-3 py-3 text-left transition hover:bg-white/[0.07]">
-            <FiMessageSquare size={17} className="shrink-0 text-violet-300" />
+          {chats.length === 0 ? (
+            <p className="px-2 py-4 text-xs leading-5 text-slate-500">
+              Your conversations will appear here.
+            </p>
+          ) : (
+            <div className="space-y-2">
+              {chats.map((chat) => (
+                <div
+                  key={chat.id}
+                  className={`group flex items-center gap-2 rounded-xl border px-3 py-3 transition ${
+                    activeChatId === chat.id
+                      ? "border-violet-400/20 bg-violet-500/[0.08]"
+                      : "border-white/[0.06] bg-white/[0.03] hover:bg-white/[0.06]"
+                  }`}
+                >
+                  <button
+                    onClick={() =>
+                      handleSelectChat(chat.id)
+                    }
+                    title={chat.title}
+                    className="flex min-w-0 flex-1 items-center gap-3 text-left"
+                  >
+                    <FiMessageSquare
+                      size={17}
+                      className="shrink-0 text-violet-300"
+                    />
 
-            <span className="flex-1 truncate text-sm text-slate-300">
-              Welcome to AI ChatBot
-            </span>
+                    <span className="truncate text-sm text-slate-300">
+                      {chat.title}
+                    </span>
+                  </button>
 
-            <FiTrash2
-              size={15}
-              className="shrink-0 text-slate-600 transition hover:text-red-400"
-            />
-          </button>
+                  <button
+                    onClick={() =>
+                      handleDeleteChat(chat.id)
+                    }
+                    aria-label={`Delete ${chat.title}`}
+                    title="Delete chat"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-600 transition hover:bg-red-500/10 hover:text-red-400"
+                  >
+                    <FiTrash2 size={15} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* AI Status Card */}
