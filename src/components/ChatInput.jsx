@@ -67,7 +67,7 @@ function ChatInput() {
       </form>
 
       <p className="mt-3 text-center text-[11px] text-slate-600">
-        AI can make mistakes. Verify important information.
+        AI can make mistakes, Remember that.
       </p>
     </footer>
   );

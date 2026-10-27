@@ -29,7 +29,7 @@ function Header() {
           </h1>
 
           <p className="truncate text-[11px] text-slate-500 sm:text-xs">
-            Your space to think bigger
+            gemini-3.5-flash-lite
           </p>
         </div>
       </div>
