@@ -8,7 +8,7 @@ const MODEL = "gemini-3.5-flash-lite";
 
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
-const STORAGE_KEY = "nova-ai-chat-history";
+const STORAGE_KEY = "ai-chatbot-history";
 
 // Load saved chats from localStorage
 function getSavedChats() {
@@ -74,7 +74,9 @@ export function ChatProvider({ children }) {
   const [message, setMessage] = useState("");
   const [chats, setChats] = useState(getSavedChats);
   const [activeChatId, setActiveChatId] = useState(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(
+    () => window.matchMedia("(min-width: 768px)").matches,
+  );
 
   // Track which chat is waiting for an AI response
   const [loadingChatId, setLoadingChatId] = useState(null);

@@ -4,43 +4,47 @@ import { BsStars } from "react-icons/bs";
 import { useChat } from "../context/ChatContext";
 
 function Header() {
-  const { setIsSidebarOpen } = useChat();
+  const { isSidebarOpen, setIsSidebarOpen } = useChat();
 
   return (
-    <>
-      {/* Background Glow */}
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-violet-600/[0.08] blur-[120px]" />
-
-      <header className="relative z-10 flex h-16 shrink-0 items-center justify-between border-b border-white/[0.06] px-4 md:px-8">
-        <div className="flex items-center gap-3">
-          {/* Mobile Menu */}
+    <header className="flex h-16 shrink-0 items-center justify-between gap-3 border-b border-white/[0.07] bg-[#080B14]/90 px-3 sm:px-5 md:px-7">
+      {/* Left Section */}
+      <div className="flex min-w-0 items-center gap-3">
+        {/* Open Sidebar Button */}
+        {!isSidebarOpen && (
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="rounded-xl border border-white/[0.08] p-2.5 text-slate-300 transition hover:bg-white/[0.06] hover:text-white md:hidden"
             aria-label="Open sidebar"
+            title="Open sidebar"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 text-slate-300 transition hover:bg-white/10 hover:text-white"
           >
-            <FiMenu size={19} />
+            <FiMenu size={20} />
           </button>
+        )}
 
-          <div>
-            <h1 className="text-sm font-semibold tracking-wide text-white">
-              AI Assistant
-            </h1>
+        {/* Header Title */}
+        <div className="min-w-0">
+          <h1 className="truncate text-sm font-semibold text-white sm:text-base">
+            AI Assistant
+          </h1>
 
-            <p className="mt-0.5 text-xs text-slate-500">
-              Your space to think bigger
-            </p>
-          </div>
+          <p className="truncate text-[11px] text-slate-500 sm:text-xs">
+            Your space to think bigger
+          </p>
         </div>
+      </div>
 
-        {/* AI Badge */}
-        <div className="flex items-center gap-2 rounded-full border border-violet-400/15 bg-violet-500/[0.07] px-3 py-1.5">
-          <BsStars className="text-violet-300" size={14} />
+      {/* Right Section */}
+      <div className="flex shrink-0 items-center gap-2 rounded-full border border-violet-400/15 bg-violet-500/[0.08] px-2.5 py-1.5 sm:gap-2.5 sm:px-3">
+        <BsStars className="text-violet-300" size={14} />
 
-          <span className="text-xs font-medium text-violet-200">Gemini AI</span>
-        </div>
-      </header>
-    </>
+        <span className="text-[10px] font-medium text-violet-200 sm:text-xs">
+          Gemini AI
+        </span>
+
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+      </div>
+    </header>
   );
 }
 

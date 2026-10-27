@@ -6,6 +6,7 @@ import MessageBubble from "./MessageBubble";
 
 function ChatWindow() {
   const { messages, isLoading } = useChat();
+
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -15,31 +16,42 @@ function ChatWindow() {
   }, [messages, isLoading]);
 
   return (
-    <section className="flex-1 overflow-y-auto px-4 py-6 md:px-8">
-      <div className="mx-auto flex w-full max-w-3xl flex-col gap-5">
+    <section
+      className="
+        min-h-0 min-w-0 flex-1 overflow-y-auto
+        overscroll-contain
+        px-3 py-5 sm:px-4 sm:py-6 md:px-8
+        [scrollbar-color:#475569_transparent]
+        [scrollbar-width:thin]
+        [&::-webkit-scrollbar]:w-1.5
+        [&::-webkit-scrollbar-track]:bg-transparent
+        [&::-webkit-scrollbar-thumb]:rounded-full
+        [&::-webkit-scrollbar-thumb]:bg-slate-600
+        hover:[&::-webkit-scrollbar-thumb]:bg-slate-500
+      "
+    >
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 sm:gap-8">
         {messages.map((message) => (
           <MessageBubble key={message.id} message={message} />
         ))}
 
-        {/* AI Loading Indicator */}
+        {/* Loading Indicator */}
         {isLoading && (
-          <div className="flex items-start gap-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-violet-400/20 bg-violet-500/10">
-              <BsStars size={17} className="text-violet-300" />
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-600">
+              <BsStars className="text-white" size={17} />
             </div>
 
-            <div className="rounded-2xl rounded-tl-sm border border-white/[0.08] bg-[#101421] px-5 py-4">
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 animate-bounce rounded-full bg-violet-400 [animation-delay:-0.3s]" />
+            <div className="flex items-center gap-2 rounded-2xl border border-white/[0.07] bg-white/[0.03] px-4 py-3">
+              <span className="h-2 w-2 animate-bounce rounded-full bg-violet-400 [animation-delay:-0.3s]" />
 
-                <span className="h-2 w-2 animate-bounce rounded-full bg-violet-400 [animation-delay:-0.15s]" />
+              <span className="h-2 w-2 animate-bounce rounded-full bg-violet-400 [animation-delay:-0.15s]" />
 
-                <span className="h-2 w-2 animate-bounce rounded-full bg-violet-400" />
+              <span className="h-2 w-2 animate-bounce rounded-full bg-violet-400" />
 
-                <span className="ml-2 text-xs text-slate-400">
-                  AI ChatBot is thinking...
-                </span>
-              </div>
+              <span className="ml-1 text-xs text-slate-400 sm:text-sm">
+                Nova AI is thinking...
+              </span>
             </div>
           </div>
         )}
