@@ -38,11 +38,14 @@ function Sidebar() {
   };
 
   const createNewChat = () => {
-    // Create a new conversation.
     handleNewChat();
 
-    // Keep the sidebar open so New Chat remains accessible.
-    setIsSidebarOpen(true);
+    // Close sidebar on mobile/tablet, keep it open on desktop.
+    if (window.matchMedia("(max-width: 1023px)").matches) {
+      setIsSidebarOpen(false);
+    } else {
+      setIsSidebarOpen(true);
+    }
   };
 
   return (
