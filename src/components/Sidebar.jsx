@@ -27,8 +27,12 @@ function Sidebar() {
   const selectChat = (chatId) => {
     handleSelectChat(chatId);
 
-    // Selecting a chat should not close the sidebar.
-    setIsSidebarOpen(true);
+    // Close sidebar on mobile/tablet, keep it open on desktop.
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      setIsSidebarOpen(false);
+    } else {
+      setIsSidebarOpen(true);
+    }
   };
 
   const createNewChat = () => {
