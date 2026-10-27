@@ -1,16 +1,62 @@
-# React + Vite
+# AI Chatbot
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive AI chatbot built with React and Google's Gemini API, featuring a clean dark interface and persistent conversation history.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🚀 [Try AI Chatbot](YOUR_VERCEL_DEPLOYMENT_URL)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **AI-Powered Conversations** — Get AI-generated responses using the Google Gemini API.
+* **Chat History** — Automatically save conversations in browser local storage.
+* **Recent Chats** — Reopen previous conversations.
+* **New Chat** — Start a fresh conversation anytime.
+* **Delete Conversations** — Remove individual conversations from history.
+* **Contextual Conversations** — Send previous messages along with new prompts.
+* **Suggested Prompts** — Start conversations with predefined suggestions.
+* **Responsive Design** — Dark-themed interface for desktop and mobile devices.
+* **Dynamic Message Input** — Expandable textarea with keyboard shortcuts.
+* **Loading States** — Visual feedback while waiting for AI responses.
+* **Error Handling** — User-friendly messages for common API errors.
+* **System Instructions** — Guide the assistant's personality, communication style, and response behaviour.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* React
+* JavaScript
+* Vite
+* Tailwind CSS
+* React Icons
+* Google Gemini API
+* Fetch API
+* React Context API
+* React Hooks
+* localStorage
+
+## AI Model
+
+**Configured Model ID:** `gemini-3.5-flash-lite`
+
+The application uses Google's Gemini API through the `generateContent` endpoint to generate AI responses.
+
+*Note: The model ID above reflects the application's current configuration.*
+
+## How It Works
+
+1. Users enter a message in the chat interface.
+2. React Context API manages the conversation state.
+3. The application sends conversation messages to the Gemini API using `fetch`.
+4. The API returns an AI-generated response.
+5. The response appears in the chat interface.
+6. Conversation history is saved in browser `localStorage`.
+
+## Chat History
+
+Conversations are stored locally in the browser using `localStorage`, allowing users to revisit previous chats after refreshing the page in the same browser.
+
+## Author
+
+**Om Sonawane**
+
+Built with React, Tailwind CSS, and the Google Gemini API.
