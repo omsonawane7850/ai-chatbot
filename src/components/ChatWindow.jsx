@@ -50,7 +50,7 @@ function ChatWindow() {
               <span className="h-2 w-2 animate-bounce rounded-full bg-violet-400" />
 
               <span className="ml-1 text-xs text-slate-400 sm:text-sm">
-                Nova AI is thinking...
+               AI ChatBot is thinking...
               </span>
             </div>
           </div>

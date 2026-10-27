@@ -48,18 +48,27 @@ function WelcomeScreen() {
   ];
 
   return (
-    <section className="relative z-10 flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-8 md:px-8">
-      <div className="m-auto flex w-full flex-col items-center">
+    <section
+      className="
+        relative z-10 flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto
+        overscroll-contain px-3 py-6 sm:px-4 sm:py-8 md:px-8
+        [scrollbar-color:#475569_transparent]
+        [scrollbar-width:thin]
+        [&::-webkit-scrollbar]:w-1.5
+        [&::-webkit-scrollbar-track]:bg-transparent
+        [&::-webkit-scrollbar-thumb]:rounded-full
+        [&::-webkit-scrollbar-thumb]:bg-slate-600
+        hover:[&::-webkit-scrollbar-thumb]:bg-slate-500
+      "
+    >
+      <div className="m-auto flex w-full min-w-0 max-w-3xl flex-col items-center">
         {/* Welcome Icon */}
         <div className="mb-5 flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-violet-400/20 bg-gradient-to-br from-violet-500/20 to-blue-500/10 shadow-[0_0_50px_rgba(139,92,246,0.12)]">
-          <BsStars
-            size={30}
-            className="text-violet-300"
-          />
+          <BsStars size={30} className="text-violet-300" />
         </div>
 
         {/* Heading */}
-        <div className="max-w-2xl text-center">
+        <div className="w-full max-w-2xl text-center">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-violet-300">
             YOUR AI COMPANION
           </p>
@@ -79,26 +88,21 @@ function WelcomeScreen() {
         </div>
 
         {/* Suggestion Cards */}
-        <div className="mt-8 grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="mt-8 grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
           {suggestions.map((suggestion) => {
             const Icon = suggestion.icon;
 
             return (
               <button
                 key={suggestion.title}
-                onClick={() =>
-                  handleSuggestionClick(suggestion.prompt)
-                }
-                className="group rounded-2xl border border-white/[0.07] bg-white/[0.02] p-4 text-left transition duration-200 hover:-translate-y-0.5 hover:border-violet-400/25 hover:bg-white/[0.04] sm:p-5"
+                onClick={() => handleSuggestionClick(suggestion.prompt)}
+                className="group min-w-0 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-4 text-left transition duration-200 hover:-translate-y-0.5 hover:border-violet-400/25 hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 sm:p-5"
               >
                 <div className="mb-4 flex items-center justify-between">
                   <div
                     className={`flex h-10 w-10 items-center justify-center rounded-xl ${suggestion.bg}`}
                   >
-                    <Icon
-                      size={19}
-                      className={suggestion.color}
-                    />
+                    <Icon size={19} className={suggestion.color} />
                   </div>
 
                   <FiArrowUpRight
