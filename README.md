@@ -4,7 +4,7 @@ A modern, responsive AI chatbot built with React and Google's Gemini API, featur
 
 ## Live Demo
 
-🚀 [Try AI Chatbot](ai-chatbot-chi-one-53.vercel.app)
+🚀 [Try AI Chatbot](https://ai-chatbot-chi-one-53.vercel.app/)
 
 ## Features
 
