@@ -2,11 +2,7 @@ import { FiSend } from "react-icons/fi";
 import { useChat } from "../context/ChatContext";
 
 function ChatInput() {
-  const {
-    message,
-    setMessage,
-    handleSubmit,
-  } = useChat();
+  const { message, setMessage, handleSubmit } = useChat();
 
   return (
     <footer className="relative z-10 shrink-0 px-4 pb-5 md:px-8 md:pb-7">
@@ -30,7 +26,7 @@ function ChatInput() {
         />
 
         <div className="flex items-center justify-between px-2 pb-1">
-          <p className="text-[11px] text-slate-600">
+          <p className="hidden text-[11px] text-slate-600 md:block">
             Ask anything · Shift + Enter for a new line
           </p>
 
